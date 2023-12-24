@@ -129,6 +129,7 @@ class Controles(tk.Frame):
         if segundos_float is not None:
             if int(segundos_float)!=self.tiempo_entero:
                 segundos = round(segundos_float, 2)
+                print("segundos::::: ", segundos)
                 self.var_tm.set(segundos)
                 t = f"0{timedelta(seconds=segundos)}"
                 self.lb_tm.config(text=t)

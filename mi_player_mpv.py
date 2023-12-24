@@ -34,7 +34,8 @@ class MiPlayerMPV(tk.Frame):
         self.vplayer.reproduce(archivo_video, inicio)
 
     def posicion_actual(self, _, segundos_f):
-        self.cn.tiempo_asigna_valor(segundos_f)
+        if segundos_f is not None:
+            self.cn.tiempo_asigna_valor(segundos_f)
 
     def stop(self):
         self.vplayer.stop()
