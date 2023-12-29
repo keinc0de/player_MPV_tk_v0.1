@@ -65,10 +65,10 @@ class Controles(tk.Frame):
             "bg":"gray10",
             "justify":"center"
         }
-        s = ttk.Style()
-        s.theme_use('clam')
+        self.st = ttk.Style()
+        self.st.theme_use('clam')
         bt = '#122224'
-        s.configure(
+        self.st.configure(
             'sbt.Horizontal.TProgressbar',
             background="#2C8E7D",
             troughcolor=bt,
@@ -89,19 +89,20 @@ class Controles(tk.Frame):
         self.lb_vol = tk.Label(self, text='100', width=3, **s_lb)
         self.lb_vol.pack(side='left')
         self.var_tm = tk.DoubleVar()
-        self.ws_tiempo = tk.Scale(
-            self, orient='horizontal',
-            variable=self.var_tm,
-            showvalue=0, **s_st,
-            state='disabled'
-        )
-        self.ws_tiempo.pack(side='left', fill='x', expand=1)
-        # self.wb_tiempo = ttk.Progressbar(
-        #     self, variable=self.var_tm,
-        #     mode='determinate',
-        #     style='sbt.Horizontal.TProgressbar'
+        # self.ws_tiempo = tk.Scale(
+        #     self, orient='horizontal',
+        #     variable=self.var_tm,
+        #     showvalue=0, **s_st,
+        #     state='disabled'
         # )
-        # self.wb_tiempo.pack(side='left', fill='x', expand=1,pady=0,ipady=0)
+        # self.ws_tiempo.pack(side='left', fill='x', expand=1)
+
+        self.wb_tiempo = ttk.Progressbar(
+            self, variable=self.var_tm,
+            mode='determinate',
+            style='sbt.Horizontal.TProgressbar'
+        )
+        self.wb_tiempo.pack(side='left', fill='x', expand=1,pady=0,ipady=0)
 
         self.lb_tm = tk.Label(self, text='00:00:00', width=7, **s_lb)
         self.lb_tm.pack(side='left')
@@ -127,13 +128,23 @@ class Controles(tk.Frame):
 
     def tiempo_asigna_valor(self, segundos_float):
         if segundos_float is not None:
-            if int(segundos_float)!=self.tiempo_entero:
-                segundos = round(segundos_float, 2)
-                print("segundos::::: ", segundos)
-                self.var_tm.set(segundos)
-                t = f"0{timedelta(seconds=segundos)}"
-                self.lb_tm.config(text=t)
-                self.tiempo_entero = int(segundos_float) # para mover por segundos
+            segundos = round(segundos_float, 2)
+            if int(segundos)!=self.tiempo_entero:
+                _, decimales = str(segundos).split('.')
+                if int(decimales)==0:
+                    try:
+                        # print("segundos::::: ", segundos)
+                        self.var_tm.set(segundos)
+                        t = f"0{timedelta(seconds=segundos)}"
+                        self.lb_tm.config(text=t)
+                        self.tiempo_entero = int(segundos_float) # para mover por segundos
+                    except Exception as ex:
+                        print("ex::: ", ex)
+
+                # self.st.configure(
+                #     'sbt.Horizontal.TProgressbar',
+                #     text=t
+                # )
 
 
 if __name__=="__main__":

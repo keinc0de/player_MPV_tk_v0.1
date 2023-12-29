@@ -99,6 +99,12 @@ class VisorPlayer(tk.Frame):
     def play_pause(self):
         std = self.player._get_property('core-idle')
         self.play() if std else self.pause()
+
+    def posicion_obten(self):
+        pos = self.player._get_property('time-pos')
+        if pos is not None:
+            pos = round(pos, 2)
+        return pos
         
 
 

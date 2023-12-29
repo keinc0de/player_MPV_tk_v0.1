@@ -1,6 +1,7 @@
 import tkinter as tk
 from visor_player import VisorPlayer
 from fmc import Controles
+from threading import Thread
 
 
 class MiPlayerMPV(tk.Frame):
@@ -32,6 +33,8 @@ class MiPlayerMPV(tk.Frame):
 
     def reproduce(self, archivo_video, inicio=0):
         self.vplayer.reproduce(archivo_video, inicio)
+        # pos = self.vplayer.posicion_obten()
+        # self.cn.tiempo_entero = int(pos)
 
     def posicion_actual(self, _, segundos_f):
         if segundos_f is not None:
@@ -42,12 +45,12 @@ class MiPlayerMPV(tk.Frame):
         self.cn.lb_tm.config(text="00:00:00")
     
 
-
 if __name__=="__main__":
     rz = tk.Tk()
     rz.geometry("400x240")
     mp = MiPlayerMPV(rz)
     vd1 = r"D:\PRO\VIDEO\CHAPTERS\MP4Tools_x32\bin\ab\vi\malvado.mp4"
-    mp.reproduce(vd1, '00:00:21')
+    mp.reproduce(vd1, '00:00:20')
+    # mp.reproduce(vd1)
     mp.pack(fill='both', expand=1)
     rz.mainloop()
