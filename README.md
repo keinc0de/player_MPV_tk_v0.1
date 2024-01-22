@@ -22,6 +22,18 @@ mp.reproduce(r"mi_video.mp4")
 mp.pack(fill='both', expand=1)
 rz.mainloop()
 ```
+
+## FUNCIONES
+de momento hace lo mas basico:
+* botones play-pause, stop
+* reproduce desde un tiempo dado - timestamp o segundos '00:01:23' o 83
+* muestra el tiempo transcurrido con una barra de progreso (solo muestra no se puede mover)
+* muestra el  volumen con un slider que se puede regular
+* atajos de teclado
+	* *flecha arriba* - sube volumen
+	* *flecha abajo* - baja volumen
+	* *espacio* - play o pausa
+
 se agrego algunas teclas rapidas:
 * **espacio** para pausar o reproducir el video
 * **flecha arriba** para subir el volumen

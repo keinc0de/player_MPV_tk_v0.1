@@ -5,7 +5,7 @@ from fmc import Controles
 
 
 class MiPlayerMPV(tk.Frame):
-    def __init__(self, parent, **kwargs):
+    def __init__(self, parent, volumen=50, **kwargs):
         super(MiPlayerMPV, self).__init__(parent, **kwargs)
         
         self.vplayer = VisorPlayer(self)
@@ -14,17 +14,16 @@ class MiPlayerMPV(tk.Frame):
         self.cn = Controles(self, bg="#1A1A1A")
         self.cn.pack(fill='x')
 
-        self.valores_iniciales()
+        self.valores_iniciales(vol=volumen)
         self.cn.ws_vol.bind("<ButtonRelease-1>", self.mueve_slide_volumen)
         self.vplayer.player.observe_property('time-pos', self.posicion_actual)
         self.cn.bt_play.config(command=self.vplayer.play_pause)
         self.cn.bt_stop.config(command=self.stop)
 
-    def valores_iniciales(self):
-        vol = 20
+    def valores_iniciales(self, vol):
         self.vplayer.ajusta_volumen(vol)
         self.cn.volumen_asigna_valor(vol)
-        self.entero = 0
+        # self.entero = 0
 
     def mueve_slide_volumen(self, e):
         self.cn.mueve_slider_vol(e)
@@ -36,7 +35,6 @@ class MiPlayerMPV(tk.Frame):
         # pos = self.vplayer.posicion_obten()
         # self.cn.tiempo_entero = int(pos)
         dr = self.vplayer._obten_duracion()
-        print(dr, int(dr))
         self.cn.tiempo_maximo_valor(int(dr))
 
     def posicion_actual(self, _, segundos_f):
@@ -86,12 +84,12 @@ class MiPlayerMPV(tk.Frame):
             self.vplayer.ajusta_volumen(nvol)
             self.cn.var_vol.set(int(nvol))
             self.cn.lb_vol.config(text=str(int(nvol)))
-            
+
 
 if __name__=="__main__":
     rz = tk.Tk()
     rz.geometry("400x240")
-    mp = MiPlayerMPV(rz)
+    mp = MiPlayerMPV(rz, volumen=60)
     vd1 = r"C:\Users\mortadela\Desktop\Europe - The Final Countdown (Official Video).mp4"
     # mp.reproduce(vd1, '00:01:10')
     mp.reproduce(vd1, 64)
