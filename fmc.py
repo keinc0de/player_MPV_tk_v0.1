@@ -124,7 +124,7 @@ class Controles(tk.Frame):
         self.lb_vol.config(text=str(valor))
 
     def tiempo_maximo_valor(self, valor):
-        self.ws_tiempo.config(to=valor)
+        self.wb_tiempo.config(maximum=valor)
 
     def tiempo_asigna_valor(self, segundos_float):
         if segundos_float is not None:
@@ -139,7 +139,9 @@ class Controles(tk.Frame):
                         self.lb_tm.config(text=t)
                         self.tiempo_entero = int(segundos_float) # para mover por segundos
                     except Exception as ex:
-                        print("ex::: ", ex)
+                        pass
+                        # print("ex::: ", ex, _, decimales)
+                        # print(segundos_float, segundos)
 
                 # self.st.configure(
                 #     'sbt.Horizontal.TProgressbar',

@@ -52,7 +52,7 @@ class VisorPlayer(tk.Frame):
             # length=100,
             # mode='determinate',
             variable=self.var_vol,
-            maximum=100, value=75,
+            maximum=200, value=75,
             style='sbv.Horizontal.TProgressbar'
         )
         self.bp_vol.pack(side='left', ipady=0, pady=0)
@@ -77,8 +77,14 @@ class VisorPlayer(tk.Frame):
         self.player.loadfile(video, start=tiempo)
         self.player.wait_until_playing()
 
+    def _obten_duracion(self):
+        return self.player._get_property('duration')
+
     def ajusta_volumen(self, vol):
         self.player._set_property('volume', vol)
+
+    def _obten_volumen_actual(self):
+        return self.player._get_property('volume')
 
     def obten_player(self):
         return self.player
@@ -108,10 +114,10 @@ class VisorPlayer(tk.Frame):
         
 
 
-if __name__=="__main__":
-    rz = tk.Tk()
-    rz.geometry("320x210")
-    vp = VisorPlayer(rz)
-    vp.pack(fill='both', expand=1)
+# if __name__=="__main__":
+#     rz = tk.Tk()
+#     rz.geometry("320x210")
+#     vp = VisorPlayer(rz)
+#     vp.pack(fill='both', expand=1)
 
-    rz.mainloop()
+#     rz.mainloop()
